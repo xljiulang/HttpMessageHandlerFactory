@@ -25,7 +25,7 @@ static async Task Main(string[] args)
 ```
 
 ## 3 扩展项目
-### 3.1 HttpMessageHandlerFactory.Connection[闭源]
+### 3.1 HttpMessageHandlerFactory.Connection[过于先进无法展示]
 为HttpMessageHandlerFactory提供自定义连接的功能。
 
 #### 3.1.1 自定义域名解析
