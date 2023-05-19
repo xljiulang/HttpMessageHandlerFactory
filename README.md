@@ -23,3 +23,53 @@ static async Task Main(string[] args)
     Console.WriteLine(html);
 }
 ```
+
+## 3 扩展项目
+### 3.1 HttpMessageHandlerFactory.Connection[闭源]
+为HttpMessageHandlerFactory提供自定义连接的功能。
+
+#### 3.1.1 自定义域名解析
+* 当无代理连接时，连接到自定义解析得到的IP
+* 当使用http代理时，让代理服务器连接到自定义解析得到的IP
+* 当使用socks代理时，让代理服务器连接到自定义解析得到的IP
+
+```c#
+services
+    .AddHttpMessageHandlerFactory("App")
+    .AddHostResolver<CustomHostResolver>();
+```
+
+```c#
+sealed class CustomHostResolver : HostResolver
+{
+    public override ValueTask<HostPort> ResolveAsync(DnsEndPoint endpoint, CancellationToken cancellationToken)
+    {
+        if (endpoint.Host == "www.baidu.com")
+        {
+            return ValueTask.FromResult(new HostPort("14.119.104.189", endpoint.Port));
+        }
+        return ValueTask.FromResult(new HostPort(endpoint.Host, endpoint.Port));
+    }
+}
+```
+#### 3.1.2 自定义ssl的sni
+```c#
+services
+    .AddHttpMessageHandlerFactory("App")
+    .AddSslSniProvider<CustomSslSniProvider>();
+```
+
+```c#
+sealed class CustomSslSniProvider : SslSniProvider
+{
+    public override ValueTask<string> GetSslSniAsync(string host, CancellationToken cancellationToken)
+    {
+        return ValueTask.FromResult(string.Empty);
+    }
+
+    public override bool RemoteCertificateValidationCallback(string host, X509Certificate? cert, X509Chain? chain, SslPolicyErrors errors)
+    {
+        return true;
+    }
+}
+```
