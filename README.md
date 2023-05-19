@@ -21,7 +21,7 @@ HttpMessageHandler CreateHandler(string name, Uri? proxyUri);
 ### 2.3 CreateInvoker
 将CreateHandler()产生的`HttpMessageHandler`包装为`HttpMessageInvoker`，适用于反向代理中间件（比如YARP）的请求转发。
 
-### 2.4 使用示例
+## 3 使用示例
 ```c#
 static async Task Main(string[] args)
 {
@@ -41,11 +41,11 @@ static async Task Main(string[] args)
 }
 ```
 
-## 3 扩展项目
-### 3.1 HttpMessageHandlerFactory.Connection[过于先进无法展示]
-为HttpMessageHandlerFactory提供自定义连接的功能。
+## 4 扩展项目
+### 4.1 HttpMessageHandlerFactory.Connection
+为HttpMessageHandlerFactory提供自定义连接的功能。[项目过于先进无法展示]
 
-#### 3.1.1 自定义域名解析
+#### 4.1.1 自定义域名解析
 * 当无代理连接时，连接到自定义解析得到的IP
 * 当使用http代理时，让代理服务器连接到自定义解析得到的IP
 * 当使用socks代理时，让代理服务器连接到自定义解析得到的IP
@@ -69,7 +69,7 @@ sealed class CustomHostResolver : HostResolver
     }
 }
 ```
-#### 3.1.2 自定义ssl的sni
+#### 4.1.2 自定义ssl的sni
 ```c#
 services
     .AddHttpMessageHandlerFactory("App")
