@@ -1,11 +1,10 @@
 # HttpMessageHandlerFactory
 具有生命周期管理和动态Web代理的HttpMessageHandler创建工厂
 
-## 1 nuget包
-https://www.nuget.org/packages/HttpMessageHandlerFactory/
+![NuGet logo](https://buildstats.info/nuget/HttpMessageHandlerFactory) 
 
-## 2 功能介绍
-### 2.1 CreateHandler
+## 1 功能介绍
+### 1.1 CreateHandler
 ```c#
 /// <summary>
 /// 创建用于请求的HttpMessageHandler
@@ -15,13 +14,13 @@ https://www.nuget.org/packages/HttpMessageHandlerFactory/
 /// <returns></returns>
 HttpMessageHandler CreateHandler(string name, Uri? proxyUri);
 ```
-### 2.2 CreateClient
+### 1.2 CreateClient
 将CreateHandler()产生的`HttpMessageHandler`包装为`HttpClient`，适用于客户端直接请求。
 
-### 2.3 CreateInvoker
+### 1.3 CreateInvoker
 将CreateHandler()产生的`HttpMessageHandler`包装为`HttpMessageInvoker`，适用于反向代理中间件（比如YARP）的请求转发。
 
-## 3 使用示例
+## 2 使用示例
 ```c#
 static async Task Main(string[] args)
 {
@@ -41,11 +40,11 @@ static async Task Main(string[] args)
 }
 ```
 
-## 4 扩展项目
-### 4.1 HttpMessageHandlerFactory.Connection
-为HttpMessageHandlerFactory提供自定义连接的功能。[项目过于先进无法展示]
+## 3 扩展项目
+### 3.1 HttpMessageHandlerFactory.Connection [过于先进无法展示]
+为HttpMessageHandlerFactory提供自定义连接的功能。
 
-#### 4.1.1 自定义域名解析
+#### 3.1.1 自定义域名解析
 * 当无代理连接时，连接到自定义解析得到的IP
 * 当使用http代理时，让代理服务器连接到自定义解析得到的IP
 * 当使用socks代理时，让代理服务器连接到自定义解析得到的IP
@@ -69,7 +68,7 @@ sealed class CustomHostResolver : HostResolver
     }
 }
 ```
-#### 4.1.2 自定义ssl的sni
+#### 3.1.2 自定义ssl的sni
 ```c#
 services
     .AddHttpMessageHandlerFactory("App")
