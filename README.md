@@ -4,7 +4,24 @@
 ## 1 nuget包
 https://www.nuget.org/packages/HttpMessageHandlerFactory/
 
-## 2 使用示例
+## 2 功能介绍
+### 2.1 CreateHandler
+```c#
+/// <summary>
+/// 创建用于请求的HttpMessageHandler
+/// </summary>
+/// <param name="name">别名</param>
+/// <param name="proxyUri">支持携带UserInfo的代理地址</param> 
+/// <returns></returns>
+HttpMessageHandler CreateHandler(string name, Uri? proxyUri);
+```
+### 2.2 CreateClient
+将CreateHandler()产生的`HttpMessageHandler`包装为`HttpClient`，适用于客户端直接请求。
+
+### 2.3 CreateInvoker
+将CreateHandler()产生的`HttpMessageHandler`包装为`HttpMessageInvoker`，适用于反向代理中间件（比如YARP）的请求转发。
+
+### 2.4 使用示例
 ```c#
 static async Task Main(string[] args)
 {
