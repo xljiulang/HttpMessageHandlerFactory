@@ -1,7 +1,10 @@
 # HttpMessageHandlerFactory
 具有生命周期管理和动态Web代理的HttpMessageHandler创建工厂
 
-![NuGet logo](https://buildstats.info/nuget/HttpMessageHandlerFactory) 
+| nuget包                              | 状态                                                                              | 说明     |
+| ------------------------------------ | --------------------------------------------------------------------------------- | -------- |
+| HttpMessageHandlerFactory            | ![NuGet logo](https://buildstats.info/nuget/HttpMessageHandlerFactory)            | MIT开源  |
+| HttpMessageHandlerFactory.Connection | ![NuGet logo](https://buildstats.info/nuget/HttpMessageHandlerFactory.Connection) | 闭源，需要授权 |
 
 ## 1 功能介绍
 ### 1.1 CreateHandler
@@ -41,7 +44,7 @@ static async Task Main(string[] args)
 ```
 
 ## 3 扩展项目
-### 3.1 HttpMessageHandlerFactory.Connection [过于先进无法展示]
+### 3.1 HttpMessageHandlerFactory.Connection
 为HttpMessageHandlerFactory提供自定义连接的功能。
 
 #### 3.1.1 自定义域名解析
