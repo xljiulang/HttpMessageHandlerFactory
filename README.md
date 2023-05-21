@@ -1,9 +1,10 @@
 # HttpMessageHandlerFactory
 具有生命周期管理和动态Web代理的HttpMessageHandler创建工厂
 
-| nuget包                              | 状态                                                                              | 说明     |
-| ------------------------------------ | --------------------------------------------------------------------------------- | -------- |
-| HttpMessageHandlerFactory            | ![NuGet logo](https://buildstats.info/nuget/HttpMessageHandlerFactory)            | MIT开源  |
+| nuget包                              | 状态                                                                              | 说明           |
+| ------------------------------------ | --------------------------------------------------------------------------------- | -------------- |
+| HttpMessageHandlerFactory            | ![NuGet logo](https://buildstats.info/nuget/HttpMessageHandlerFactory)            | MIT开源        |
+| HttpMessageHandlerFactory.Polly      | ![NuGet logo](https://buildstats.info/nuget/HttpMessageHandlerFactory.Polly)      | MIT开源        |
 | HttpMessageHandlerFactory.Connection | ![NuGet logo](https://buildstats.info/nuget/HttpMessageHandlerFactory.Connection) | 闭源，需要授权 |
 
 ## 1 功能介绍
@@ -44,7 +45,56 @@ static async Task Main(string[] args)
 ```
 
 ## 3 扩展项目
-### 3.1 HttpMessageHandlerFactory.Connection
+### 3.1 HttpMessageHandlerFactory.Polly
+为HttpMessageHandlerFactory提供Polly策略扩展，使得`IHttpMessageHandlerBuilder`拥有与`IHttpClientFactory`完全一致的Polly能力。
+
+#### 3.1.1 AddPolicyHandler能力
+```c#
+var retryPolicy = Policy.Handle<HttpRequestException>()
+    .OrResult<HttpResponseMessage>(response =>
+    {
+        return response.IsSuccessStatusCode == false;
+    }).WaitAndRetryAsync(3, t => TimeSpan.FromSeconds(3d));
+
+ services
+    .AddHttpMessageHandlerFactory("App")
+    .AddPolicyHandler(retryPolicy);    
+```
+
+#### 3.1.2 AddPolicyHandlerFromRegistry能力
+```c#
+var retryPolicy = Policy.Handle<HttpRequestException>()
+    .OrResult<HttpResponseMessage>(response =>
+    {
+        return response.IsSuccessStatusCode == false;
+    }).WaitAndRetryAsync(3, t => TimeSpan.FromSeconds(3d));
+
+var registry = services.AddPolicyRegistry();
+registry.Add("registry1", retryPolicy);
+
+services
+    .AddHttpMessageHandlerFactory("App")
+    .AddPolicyHandlerFromRegistry("registry1");    
+```
+
+#### 3.1.3 AddTransientHttpErrorPolicy能力
+当以下任意条件成立时，触发TransientHttpErrorPolicy
+* HttpRequestException的网络故障
+* 服务端响应5XX的状态码
+* 408的状态码(request timeout)
+  
+```c#
+services
+    .AddHttpMessageHandlerFactory("App")
+    .AddTransientHttpErrorPolicy(builder => builder.WaitAndRetryAsync(new[] {
+        TimeSpan.FromSeconds(1d),
+        TimeSpan.FromSeconds(5d),
+        TimeSpan.FromSeconds(10d)
+    }));  
+```
+ 
+
+### 3.2 HttpMessageHandlerFactory.Connection
 为HttpMessageHandlerFactory提供自定义连接的功能。
 注意此扩展项目不是免费项目，有如下限制：
 * 不开放和提供源代码
@@ -52,7 +102,7 @@ static async Task Main(string[] args)
 * 适用期结束后所有的http请求响应为423 Locked
 * 需要license文件授权方可完全使用
 
-#### 3.1.1 自定义域名解析
+#### 3.2.1 自定义域名解析
 * 当无代理连接时，连接到自定义解析得到的IP
 * 当使用http代理时，让代理服务器连接到自定义解析得到的IP
 * 当使用socks代理时，让代理服务器连接到自定义解析得到的IP
@@ -76,7 +126,7 @@ sealed class CustomHostResolver : HostResolver
     }
 }
 ```
-#### 3.1.2 自定义ssl的sni
+#### 3.2.2 自定义ssl的sni
 ```c#
 services
     .AddHttpMessageHandlerFactory("App")
