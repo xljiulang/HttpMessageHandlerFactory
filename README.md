@@ -46,6 +46,11 @@ static async Task Main(string[] args)
 ## 3 扩展项目
 ### 3.1 HttpMessageHandlerFactory.Connection
 为HttpMessageHandlerFactory提供自定义连接的功能。
+注意此扩展项目不是免费项目，有如下限制：
+* 不开放和提供源代码
+* nuget包的程序集在应用程序运行2分钟后适用期结束
+* 适用期结束后所有的http请求响应为423 Locked
+* 需要license文件授权方可完全使用
 
 #### 3.1.1 自定义域名解析
 * 当无代理连接时，连接到自定义解析得到的IP
