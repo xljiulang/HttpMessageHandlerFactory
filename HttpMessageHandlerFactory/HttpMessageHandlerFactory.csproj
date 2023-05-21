@@ -1,17 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<Version>1.0.0</Version>
-		<TargetFramework>net6.0</TargetFramework>
-		<Nullable>enable</Nullable>
-		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	<PropertyGroup>	
 		<Title>HttpMessageHandlerFactory</Title>
-		<Authors>laojiu</Authors>
-		<Company>laojiu</Company>
-		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<PackageProjectUrl>https://github.com/xljiulang/HttpMessageHandlerFactory</PackageProjectUrl>
 		<Description>具有生命周期管理和动态Web代理的HttpMessageHandler创建工厂</Description>
+		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>

@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
+    /// <summary>
+    /// ServiceCollection扩展
+    /// </summary>
     public static class ServiceCollectionExtensions
     {
         /// <summary>

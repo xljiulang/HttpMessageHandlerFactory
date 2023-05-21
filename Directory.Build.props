@@ -1,0 +1,13 @@
+<Project>
+	<PropertyGroup>
+		<Version>1.0.1</Version>
+		<Nullable>enable</Nullable>
+		<TargetFramework>net6.0</TargetFramework>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>		
+		<Authors>laojiu</Authors>
+		<Company>laojiu</Company>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/xljiulang/HttpMessageHandlerFactory</PackageProjectUrl>
+	</PropertyGroup>
+</Project>

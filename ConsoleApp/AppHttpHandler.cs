@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp
 {
-    public class AppHttpHandler : DelegatingHandler
+    sealed class AppHttpHandler : DelegatingHandler
     {
         private readonly ILogger<AppHttpHandler> logger;
 
