@@ -3,7 +3,7 @@
 	<PropertyGroup>	
 		<Title>HttpMessageHandlerFactory</Title>
 		<Description>具有生命周期管理和动态Web代理的HttpMessageHandler创建工厂</Description>
-		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+		<DocumentationFile>$(TargetPath)\$(AssemblyName).xml</DocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>

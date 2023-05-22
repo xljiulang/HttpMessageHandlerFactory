@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<Title>HttpMessageHandlerFactory.Polly</Title>
 		<Description>为HttpMessageHandlerFactory提供Polly策略扩展</Description>
-		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+		<DocumentationFile>$(TargetPath)\$(AssemblyName).xml</DocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>
